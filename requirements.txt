@@ -1,0 +1,3 @@
+python-twitter
+win10toast
+Pillow
