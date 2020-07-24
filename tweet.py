@@ -1,6 +1,7 @@
 from win10toast import ToastNotifier
 from helper import handler
 import twitter
+import time
 import config
 """
 You need to make config.py
@@ -28,5 +29,6 @@ def tweet_noti(dt):
                                         temp_date = dt.get_time(status.created_at)
                                 profile = status.user.profile_image_url
                                 handler.get_profile(profile)
-                                toaster.show_toast(status.user.name + "님이 트윗을 올렸습니다.", status.text, icon_path="profile.ico")
+                                toaster.show_toast(status.user.name + "님이 트윗을 올렸습니다.", status.text,
+                                         icon_path="profile.ico")
         dt.update_time(temp_date)
