@@ -30,5 +30,5 @@ def tweet_noti(dt):
                                 profile = status.user.profile_image_url
                                 handler.get_profile(profile)
                                 toaster.show_toast(status.user.name + "님이 트윗을 올렸습니다.", status.text,
-                                         icon_path="profile.ico")
+                                         icon_path="profile.ico", duration=60) #60초 뒤에 제거
         dt.update_time(temp_date)
