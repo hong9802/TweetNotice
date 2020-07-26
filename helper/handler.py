@@ -1,6 +1,7 @@
 from PIL import Image
 import requests
 import os
+import config
 
 def get_profile(profile):
     imgname = profile.rsplit("/", 1)[1]
@@ -12,3 +13,6 @@ def get_profile(profile):
         img = Image.open(imgname)
         img.save("profile.ico")
         os.remove(imgname)
+
+def delete_account(account):
+    config.account.remove(account)

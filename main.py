@@ -1,4 +1,3 @@
-from helper import handler
 import schedule
 import tweet
 import time

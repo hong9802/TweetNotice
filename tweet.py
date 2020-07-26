@@ -20,15 +20,19 @@ def tweet_noti(dt):
                                 access_token_secret=config.twitter_access_secret)
         temp_date = dt.get_alert_time()
         for account in config.account:
-                statuses = twitter_api.GetUserTimeline(screen_name=account, count=1,
+                try:
+                        statuses = twitter_api.GetUserTimeline(screen_name=account, count=1,
                         include_rts=True, exclude_replies=False)
-                toaster = ToastNotifier()
-                for status in statuses:
-                        if(dt.get_alert_time() < dt.get_time(status.created_at)):
-                                if(temp_date < dt.get_time(status.created_at)):
-                                        temp_date = dt.get_time(status.created_at)
-                                profile = status.user.profile_image_url
-                                handler.get_profile(profile)
-                                toaster.show_toast(status.user.name + "님이 트윗을 올렸습니다.", status.text,
+                        toaster = ToastNotifier()
+                        for status in statuses:
+                                if(dt.get_alert_time() < dt.get_time(status.created_at)):
+                                        if(temp_date < dt.get_time(status.created_at)):
+                                                temp_date = dt.get_time(status.created_at)
+                                        profile = status.user.profile_image_url
+                                        handler.get_profile(profile)
+                                        toaster.show_toast(status.user.name + "님이 트윗을 올렸습니다.", status.text,
                                          icon_path="profile.ico", duration=60) #60초 뒤에 제거
+                except twitter.TwitterError as e:
+                        print(e)
+                        handler.delete_account(account)
         dt.update_time(temp_date)
